@@ -1,0 +1,14 @@
+{
+  "name": "mocha-travis-stats",
+  "version": "0.0.0",
+  "description": "Generates some build stats for Mocha",
+  "private": true,
+  "main": "mocha-travis-stats.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Christopher Hiller <boneskull@boneskull.com> (https://boneskull.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
