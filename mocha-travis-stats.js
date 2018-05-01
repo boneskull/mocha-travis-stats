@@ -2,11 +2,10 @@
 
 const axios = require('axios');
 const {URLSearchParams} = require('url');
-const stringify = require('csv-stringify/lib/sync');
 
 const TOKEN = process.env.TRAVIS_CI_TOKEN;
 
-// oldest  build we care about (we don't even have this much data)
+// oldest build we care about (we don't even have this much data)
 const START_TS = new Date('2017-10-01T00:00:00Z').getTime();
 // after change was made
 const SPLIT_TS = new Date('2018-04-07T09:48:00Z').getTime();
@@ -59,18 +58,15 @@ const getBuilds = async (offset = 0) => {
   const passedPostChange = passed.filter(postChange);
   const failedPreChange = failed.filter(preChange);
   const failedPostChange = failed.filter(postChange);
+  const sum = (acc, build) => acc + build.duration;
   const avgPassedDurationPreChange =
-    passedPreChange.reduce((acc, build) => acc + build.duration, 0) /
-    passedPreChange.length;
+    passedPreChange.reduce(sum, 0) / passedPreChange.length;
   const avgPassedDurationPostChange =
-    passedPostChange.reduce((acc, build) => acc + build.duration, 0) /
-    passedPostChange.length;
+    passedPostChange.reduce(sum, 0) / passedPostChange.length;
   const avgFailedDurationPreChange =
-    failedPreChange.reduce((acc, build) => acc + build.duration, 0) /
-    failedPreChange.length;
+    failedPreChange.reduce(sum, 0) / failedPreChange.length;
   const avgFailedDurationPostChange =
-    failedPostChange.reduce((acc, build) => acc + build.duration, 0) /
-    failedPostChange.length;
+    failedPostChange.reduce(sum, 0) / failedPostChange.length;
 
   console.log(`
 Total build count: ${totalBuildCount}
